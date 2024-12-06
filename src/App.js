@@ -114,7 +114,7 @@ const App = () => {
         }}
       >
         {selectCity
-          ? `You selected ${selectCountry}, ${selectState}, ${selectCity}`
+          ? `You selected ${selectCity}, ${selectState}, ${selectCountry}`
           : `` }
       </h2>      
     </div>
