@@ -16,6 +16,7 @@ const App = () => {
     fetch(API_URL)
     .then((res) => res.json())
     .then((data) => {setCountries(data)})
+    .catch((error) => console.error("Error fetching data:" + error))
   } , [API_URL])
 
   const State_URL = `https://crio-location-selector.onrender.com/country=${selectCountry}/states`;
@@ -27,6 +28,7 @@ const App = () => {
     fetch(State_URL)
     .then((res) => res.json())
     .then((data) => {setState(data)})
+    .catch((error) => console.error("Error fetching data for States:" + error))
     }
   } , [selectCountry , State_URL])
 
@@ -38,6 +40,7 @@ const App = () => {
     fetch(City_URL)
     .then((res) => res.json())
     .then((data) => setCity(data))
+    .catch((error) => console.error("Error fetching data for cities:" + error))
   } , [selectCountry, selectState , City_URL])
 
   
