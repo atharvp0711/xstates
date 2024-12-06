@@ -2,6 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+<!-- Reactive Behavior:
+The APp.js works fine if we remove value and onChange props from <select> (during the first coding of select countries dropdown)
+
+However, The value and onChange props make this a controlled component.This is useful when you need to respond to user input programmatically or share the selected value across components.
+the value and onChange props ensure that React knows the selected value and can reactively log the selection to the console or perform further actions based on this. 
+
+You can add side effects (e.g., fetching data or triggering updates) when the selected value changes by tracking selectCountry. -->
+
+
+
+<!-- ERROR : React Hook useEffect has a missing dependency: 'City_URL'. Either include it or remove the dependency array. -->
+<!-- This warning occurs because the useEffect hook in React requires all external variables referenced within it to be included in its dependency array. This ensures that the effect is re-run whenever those variables change. In your case, City_URL is used inside the useEffect but not listed in its dependency array.If you don't include City_URL in the dependency array, and its value changes, the effect won't re-run, potentially causing bugs. -->
+
 ## Available Scripts
 
 In the project directory, you can run:
