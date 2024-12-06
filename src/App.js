@@ -30,6 +30,8 @@ const App = () => {
     }
   } , [selectCountry , State_URL])
 
+  console.log(State_URL) ;
+
   const City_URL = `https://crio-location-selector.onrender.com/country=${selectCountry}/state=${selectState}/cities`;
   useEffect(() => {
     if(!selectCountry || !selectState){
@@ -46,6 +48,7 @@ const App = () => {
     setCity([]);
     setSelectCity("");
   }, [selectCountry ,selectState]);
+
     
   
   return (
@@ -67,7 +70,7 @@ const App = () => {
         {countries.map((country , index) => <option value = {country} key = {index}> {country} </option>)}
       </select>
 
-      <select name = "state" id = "state" value = {selectState} onClick={ (e) => setSelectState(e.target.value)} style={
+      <select name = "state" id = "state" value = {selectState} onChange={ (e) => setSelectState(e.target.value)} style={
         {
           margin : "10px" ,
           padding : "5px" ,
@@ -78,7 +81,7 @@ const App = () => {
         {state.map((state , index) => <option value = {state} key = {index}> {state} </option>)}
       </select>
 
-      <select name = "city" id = "city" value = {selectCity} onClick = {(e) => setSelectCity(e.target.value)} style={
+      <select name = "city" id = "city" value = {selectCity} onChange = {(e) => setSelectCity(e.target.value)} style={
         {
           margin : "10px" ,
           padding : "5px" ,
