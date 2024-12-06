@@ -4,8 +4,8 @@ import { useState } from 'react';
 const App = () => {
   
   const [countries , setCountries] = useState([]) ;
-  const [state, setState] = useState([]);
-  const [city , setCity] = useState([]);
+  const [states, setState] = useState([]);
+  const [cities , setCity] = useState([]);
   
   const [selectCountry , setSelectCountry] = useState("") ;
   const [selectState , setSelectState] = useState("") ; 
@@ -30,26 +30,16 @@ const App = () => {
     }
   } , [selectCountry , State_URL])
 
-  console.log(State_URL) ;
-
   const City_URL = `https://crio-location-selector.onrender.com/country=${selectCountry}/state=${selectState}/cities`;
   useEffect(() => {
     if(!selectCountry || !selectState){
       return ;
     }
     fetch(City_URL)
-    .then((res) => {res.json()})
-    .then((data) => {setCity(data)})
+    .then((res) => res.json())
+    .then((data) => setCity(data))
   } , [selectCountry, selectState , City_URL])
 
-  useEffect(() => {
-    setState([]);
-    setSelectState("");
-    setCity([]);
-    setSelectCity("");
-  }, [selectCountry ,selectState]);
-
-    
   
   return (
     <div>
@@ -58,39 +48,72 @@ const App = () => {
           textAlign : "center",
         }
       }> Select Location </h1>
-
-      <select name = "country" id = "country" value = {selectCountry} onChange={ (e) => setSelectCountry(e.target.value)} style={
+      <div style={
         {
-          margin : "10px" ,
-          padding : "5px" ,
-          width: "200px" 
+          display: "flex",
+          justifyContent : "center",
         }
       }>
-        <option value = "" disabled> Select Country </option>
-        {countries.map((country , index) => <option value = {country} key = {index}> {country} </option>)}
-      </select>
-
-      <select name = "state" id = "state" value = {selectState} onChange={ (e) => setSelectState(e.target.value)} style={
-        {
-          margin : "10px" ,
-          padding : "5px" ,
-          width: "200px" 
+        <select name = "country" id = "country" value = {selectCountry} onChange={ (e) => {
+        setSelectCountry(e.target.value)
+        setState([]);
+        setCity([]);
+        setSelectState("");
+        setSelectCity("");
         }
-      }>
-        <option value = "" disabled> Select State </option>
-        {state.map((state , index) => <option value = {state} key = {index}> {state} </option>)}
-      </select>
+      } 
+        style={
+          {
+            margin : "10px" ,
+            padding : "5px" ,
+            width: "200px" 
+          }
+        }>
+          <option value = "" disabled> Select Country </option>
+          {countries.map((country , index) => <option value = {country} key = {index}> {country} </option>)}
+        </select>
 
-      <select name = "city" id = "city" value = {selectCity} onChange = {(e) => setSelectCity(e.target.value)} style={
-        {
-          margin : "10px" ,
-          padding : "5px" ,
-          width: "200px" 
+        <select name = "states" id = "states" value = {selectState} onChange={ (e) => {
+        setSelectState(e.target.value);
+        setCity([]);
+        setSelectCity("");
         }
-      }>
-        <option value = "" disabled> Select City </option>
-        {city.map((city ,index) => <option value={city} key = {index}> {city} </option>)}
-      </select>           
+      } 
+      disabled = {!selectCountry}
+        style={
+          {
+            margin : "10px" ,
+            padding : "5px" ,
+            width: "200px" 
+          }
+        }>
+          <option value = "" disabled> Select State </option>
+          {states.map((state , index) => <option value = {state} key = {index}> {state} </option>)}
+        </select>
+
+        <select name = "cities" id = "cities" value = {selectCity} onChange = {(e) => setSelectCity(e.target.value)} 
+        disabled = {!selectState}
+        style={
+          {
+            margin : "10px" ,
+            padding : "5px" ,
+            width: "200px" 
+          }
+        }>
+          <option value = "" disabled> Select City </option>
+          {cities.map((city ,index) => <option value={city} key = {index}> {city} </option>)}
+        </select>
+      </div>
+      <h2
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {selectCity
+          ? `You selected ${selectCountry}, ${selectState}, ${selectCity}`
+          : `` }
+      </h2>      
     </div>
   );
 };
